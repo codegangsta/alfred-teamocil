@@ -1,9 +1,14 @@
 require "fileutils"
 
-workflow_home=File.expand_path("~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows")
+WORKFLOW_HOME = File.expand_path("~/Library/Application Support/Alfred 2/Alfred.alfredpreferences/workflows")
+
+
+task :default => [:install]
 
 task :install do
-  FileUtils.cp_r "teamocil", workflow_home
+  puts "Installing teamocil workflow..."
+  FileUtils.cp_r "teamocil", WORKFLOW_HOME
+  puts "Done"
 end
 
 
