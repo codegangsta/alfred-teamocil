@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>io.codegangsta</string>
+	<key>connections</key>
+	<dict>
+		<key>A93B840A-5F2D-41F1-B016-7A210444FF7C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A03EAAAA-7F68-4BF3-8971-8F856772E37A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Code Gangsta</string>
+	<key>description</key>
+	<string>Teamocil launcher</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Teamocil</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>keyword</key>
+				<string>teamocil</string>
+				<key>runningsubtext</key>
+				<string>Seaching for "{query}"</string>
+				<key>script</key>
+				<string>argument = "{query}"
+
+items = ""
+items &lt;&lt; "&lt;items&gt;"
+
+Dir.glob("#{ENV['HOME']}/.teamocil/*.yml").each do |file|
+  prop = File.basename file, ".yml"  
+
+  if prop.include?(argument) || argument.empty?
+    items &lt;&lt; "&lt;item arg='#{prop}' uid='#{prop}'&gt;"
+    items &lt;&lt; "  &lt;title&gt;#{prop}&lt;/title&gt;"
+    items &lt;&lt; "  &lt;subtitle&gt;Open #{prop} with teamocil&lt;/subtitle&gt;"
+	items &lt;&lt; "  &lt;icon&gt;icon.png&lt;/icon&gt;"
+    items &lt;&lt; "&lt;/item&gt;"
+  end
+end
+
+items &lt;&lt; "&lt;/items&gt;"
+
+puts items
+</string>
+				<key>subtext</key>
+				<string>open a teamocil layout file</string>
+				<key>title</key>
+				<string>teamocil</string>
+				<key>type</key>
+				<integer>2</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>A93B840A-5F2D-41F1-B016-7A210444FF7C</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>tmux attach -t '{query}' || tmux new-session -s '{query}' 'teamocil {query}'</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.terminalcommand</string>
+			<key>uid</key>
+			<string>A03EAAAA-7F68-4BF3-8971-8F856772E37A</string>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Requirements:
+	tmux - (brew install tmux)
+	teamocil - (gem install teamocil)
+
+
+Usage:
+
+"teamocil &lt;layout&gt;"
+	
+	Open a new tmux session with the selected teamocil layout. If a session already exists it will open a new terminal window/tab and attach to the existing session.</string>
+	<key>uidata</key>
+	<dict>
+		<key>A03EAAAA-7F68-4BF3-8971-8F856772E37A</key>
+		<dict>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+		<key>A93B840A-5F2D-41F1-B016-7A210444FF7C</key>
+		<dict>
+			<key>ypos</key>
+			<real>90</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://codegangsta.io</string>
+</dict>
+</plist>
